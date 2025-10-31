@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akash - MERN Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A3B47 0%, #00B4D8 100%);
+        }
+        
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 180, 216, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(42, 59, 71, 0.1) 0%, transparent 50%);
+        }
+        
+        .skill-card {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.2);
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: #00B4D8;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #00B4D8;
+        }
+        
+        .progress-bar {
+            transition: width 2s ease-in-out;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00B4D8;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00B4D8, #0077B6);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 180, 216, 0.3);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">A</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Akash</h1>
+                        <p class="text-sm text-gray-600">MERN Stack Developer</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#skills" class="nav-link text-gray-700 hover:text-blue-600">Skills</a>
+                    <a href="projects.html" class="nav-link text-gray-700 hover:text-blue-600">Projects</a>
+                    <a href="#education" class="nav-link text-gray-700 hover:text-blue-600">Education</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-blue-600">Contact</a>
+                </nav>
+                
+                <div class="flex space-x-4">
+                    <a href="https://github.com/akasheyy" class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/akash-v-s-309815380/" class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://wa.me/917510707228" class="text-gray-400 hover:text-green-500 transition-colors"target="_blank">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                            </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <nav class="flex flex-col space-y-4">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#skills" class="text-gray-700 hover:text-blue-600">Skills</a>
+                    <a href="projects.html" class="text-gray-700 hover:text-blue-600">Projects</a>
+                    <a href="#education" class="text-gray-700 hover:text-blue-600">Education</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center hero-pattern pt-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h2 class="text-5xl md:text-6xl font-bold text-gray-800 mb-4">
+                        Hi, I'm <span class="text-blue-600">Akash</span>
+                    </h2>
+                    <h3 class="text-2xl md:text-3xl text-gray-600 mb-6">
+                        Building Modern Web Solutions with MERN Stack
+                    </h3>
+                    <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                        Fresh graduate with a passion for creating innovative web applications. 
+                        Specialized in MongoDB, Express.js, React.js, and Node.js. Ready to bring 
+                        creative solutions to your next project.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-primary text-white px-8 py-3 rounded-lg font-semibold">
+                            <a href="projects.html">View My Work</a>
+                        </button>
+                        <button onclick="scrollToSection('contact')" class="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-all">
+                            Get in Touch
+                        </button>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Skills & Technologies</h2>
+                <p class="text-xl text-gray-600">Technologies I work with</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- MongoDB -->
+                <div class="skill-card bg-white p-6 rounded-xl shadow-lg border">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-database text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">MongoDB</h3>
+                    </div>
+                </div>
+                
+                <!-- Express.js -->
+                <div class="skill-card bg-white p-6 rounded-xl shadow-lg border">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-server text-2xl text-gray-700"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Express.js</h3>
+                    </div>
+                </div>
+                
+                <!-- React.js -->
+                <div class="skill-card bg-white p-6 rounded-xl shadow-lg border">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fab fa-react text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">React.js</h3>
+                    </div>
+                </div>
+                
+                <!-- Node.js -->
+                <div class="skill-card bg-white p-6 rounded-xl shadow-lg border">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fab fa-node-js text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Node.js</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Skills -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-semibold text-center mb-8">Additional Technologies</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-medium">HTML5</span>
+                    <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium">CSS3</span>
+                    <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full font-medium">JavaScript</span>
+                    <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium">Bootstrap</span>
+                    <span class="bg-cyan-100 text-cyan-800 px-4 py-2 rounded-full font-medium">Tailwind CSS</span>
+                    <span class="bg-red-100 text-red-800 px-4 py-2 rounded-full font-medium">Git</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Education Section -->
+    <section id="education" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Education Background</h2>
+                <p class="text-xl text-gray-600">My academic journey</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200"></div>
+                    
+                    <!-- Education Item 2 -->
+                    <div class="timeline-item relative pl-20 pb-12">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-school text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold">Higher Secondary (+2)</h3>
+                                    <p class="text-gray-600">GHSS NELLIKUTH • 2023-2025</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-3">
+                                Completed +2 in Science stream with Mathematics, Physics, and Chemistry. 
+                                Developed analytical thinking and problem-solving skills.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Percentage: 74%</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Science Stream</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Certifications -->
+                    <div class="timeline-item relative pl-20">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-certificate text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold">Certifications & Courses</h3>
+                                    <p class="text-gray-600">SINET • 2025-2026</p>
+                                </div>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Full Stack Web Development</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>React.js Certification</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>Node.js & Express.js</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    <span>MongoDB Database</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                <p class="text-xl text-gray-600">Let's discuss your next project</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-6">Send Message</h3>
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Name</label>
+                            <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Message</label>
+                            <textarea rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full text-white py-3 rounded-lg font-semibold">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Email</h4>
+                                <div class="flex items-center">
+                   <a href="https://mail.google.com/mail/?view=cm&fs=1&to=vadakkangaraakash@gmail.com"class="text-gray-700 hover:text-indigo-600" >vadakkangaraakash@gmail.com</a>
+                 </div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500">Response time: Within 24 hours</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Location</h4>
+                                <p class="text-gray-600">kerala, India</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500">Available for remote work</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-clock text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Availability</h4>
+                                <p class="text-gray-600">Open to opportunities</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500">Full-time & Freelance projects</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h4 class="font-semibold mb-4">Connect with me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/akasheyy" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-gray-700 transition-colors">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/akash-v-s-309815380/" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://wa.me/917510707228"  class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white hover:bg-green-600 transition-colors"target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                             </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center">
+                            <span class="text-white font-bold">A</span>
+                        </div>
+                        <span class="text-xl font-semibold">Akash</span>
+                    </div>
+                    <p class="text-gray-400">
+                        MERN Stack Developer passionate about creating modern web solutions.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="#home" class="block text-gray-400 hover:text-white transition-colors">Home</a>
+                        <a href="#skills" class="block text-gray-400 hover:text-white transition-colors">Skills</a>
+                        <a href="projects.html" class="block text-gray-400 hover:text-white transition-colors">Projects</a>
+                        <a href="#education" class="block text-gray-400 hover:text-white transition-colors">Education</a>
+                        <a href="#contact" class="block text-gray-400 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Social Media</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/akasheyy" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/akash-v-s-309815380/" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                           <a href="https://wa.me/917510707228" class="text-gray-400 hover:text-green-500 transition-colors"target="_blank">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                            </a>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    © 2023 Akash. All rights reserved.
+                </p>
+                <button onclick="scrollToTop()" class="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    <i class="fas fa-arrow-up mr-2"></i>Back to Top
+                </button>
+            </div>
+        </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+    }
+
+    // Smooth scrolling
+    function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Project filtering
+    function filterProjects(category) {
+        const projects = document.querySelectorAll('.project-card');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        // Update button styles
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-blue-600', 'text-white');
+            btn.classList.add('bg-gray-200', 'text-gray-700');
+        });
+        event.target.classList.remove('bg-gray-200', 'text-gray-700');
+        event.target.classList.add('bg-blue-600', 'text-white');
+
+        // Filter projects
+        projects.forEach(project => {
+            if (category === 'all' || project.dataset.category === category) {
+                project.style.display = 'block';
+            } else {
+                project.style.display = 'none';
+            }
+        });
+    }
+
+    // ==========================
+    // ✉️ EMAILJS CONTACT FORM
+    // ==========================
+    // Initialize EmailJS (use your PUBLIC key, not service id!)
+    (function(){
+        emailjs.init("p8wpAWTAfovskUQml"); // e.g. emailjs.init("p7x9AbCDEF123XYZ");
+    })();
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const name = form.querySelector('input[type="text"]').value;
+        const email = form.querySelector('input[type="email"]').value;
+        const message = form.querySelector('textarea').value;
+
+        // Replace with your actual IDs from EmailJS dashboard
+        emailjs.send("service_jy4zxcg", "template_58jawow", {
+            from_name: name,
+            from_email: email,
+            message: message
+        })
+        .then(() => {
+            alert("✅ Message sent successfully!");
+            form.reset();
+        }, (error) => {
+            alert("❌ Failed to send message. Please try again.");
+            console.error(error);
+        });
+    }
+
+    // ==========================
+    // Scroll animations
+    // ==========================
+    function handleScrollAnimations() {
+        const elements = document.querySelectorAll('.fade-in');
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.classList.add('visible');
+            }
+        });
+    }
+
+    // Progress bar animation
+    function animateProgressBars() {
+        const progressBars = document.querySelectorAll('.progress-bar');
+        progressBars.forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 500);
+        });
+    }
+
+    // Initialize animations
+    window.addEventListener('scroll', handleScrollAnimations);
+    window.addEventListener('load', () => {
+        handleScrollAnimations();
+        setTimeout(animateProgressBars, 1000);
+    });
+
+    // Smooth navigation highlight
+    window.addEventListener('scroll', () => {
+        const sections = ['home', 'skills', 'projects', 'education', 'contact'];
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        let current = '';
+        sections.forEach(section => {
+            const element = document.getElementById(section);
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 100 && rect.bottom >= 100) {
+                current = section;
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('text-blue-600');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('text-blue-600');
+            }
+        });
+    });
+</script>
+</html>
+
+
+
+ <!-- <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="frontend">
+//                     <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+//                         <i class="fas fa-palette text-4xl text-white"></i>
+//                     </div>
+//                     <div class="p-6">
+//                         <h3 class="text-xl font-semibold mb-2">Portfolio Website of actor Vijay</h3>
+//                         <p class="text-gray-600 mb-4">Responsive portfolio website with modern design and smooth animations.</p>
+//                         <div class="flex flex-wrap gap-2 mb-4">
+//                             <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-sm">HTML5</span>
+//                             <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">CSS3</span>
+//                             <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">JavaScript</span>
+//                         </div>
+//                         <div class="flex gap-4">
+//                             <a href="https://akasheyy.github.io/Vijay-portfolio/" class="text-blue-600 hover:text-blue-800 font-medium">Live Demo</a>
+//                             <a href="#" class="text-gray-600 hover:text-gray-800 font-medium">GitHub</a>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div> -->
